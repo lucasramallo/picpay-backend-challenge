@@ -1,8 +1,8 @@
 # Desafio Back-end PicPay
 ## Stack que utilizei
 [![My Skills](https://skillicons.dev/icons?i=java,spring,mysql,docker&theme=dark)](https://skillicons.dev) 
-<img src="https://github.com/lucasramallo/picpay-backend-challenge/assets/108425719/b22ed7ae-8bb9-44c4-9dbd-459daf11577c" alt="Descrição da imagem" width="50">
-<img src="https://github.com/lucasramallo/picpay-backend-challenge/assets/108425719/3defd51d-0e00-42f3-8ce9-7a0457af773e" alt="Descrição da imagem" width="50">
+<img src="https://github.com/lucasramallo/picpay-backend-challenge/assets/108425719/f4bd08c4-a579-4fe0-942d-c5f7b8a036f3" alt="Descrição da imagem" width="48">
+<img src="https://github.com/lucasramallo/picpay-backend-challenge/assets/108425719/3e385b0c-e871-45a6-9252-f77fa8bff3b1" alt="Descrição da imagem" width="50">
 
 
 ## Objetivo: PicPay Simplificado
