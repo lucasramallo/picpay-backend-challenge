@@ -1,5 +1,4 @@
 package com.github.lucasramallo.project.core.domain.transaction;
-
 import com.github.lucasramallo.project.core.domain.account.Account;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
