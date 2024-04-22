@@ -1,7 +1,7 @@
 package com.github.lucasramallo.project.core.domain.customer;
 
 import com.github.lucasramallo.project.core.domain.account.Account;
-import com.github.lucasramallo.project.core.domain.enums.CustomerType;
+import com.github.lucasramallo.project.core.domain.customer.enums.CustomerType;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
