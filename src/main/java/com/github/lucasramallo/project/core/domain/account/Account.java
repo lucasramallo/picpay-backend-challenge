@@ -10,9 +10,13 @@ import java.util.UUID;
 
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
 public class Account {
     private UUID id;
     private BigDecimal balance;
+
+    public Account(BigDecimal balance) {
+        this.id = UUID.randomUUID();
+        this.balance = BigDecimal.ZERO;
+    }
 }
