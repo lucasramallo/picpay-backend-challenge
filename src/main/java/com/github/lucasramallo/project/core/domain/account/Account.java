@@ -12,11 +12,11 @@ import java.util.UUID;
 @Setter
 @NoArgsConstructor
 public class Account {
-    private UUID id;
+    private String number;
     private BigDecimal balance;
 
-    public Account(BigDecimal balance) {
-        this.id = UUID.randomUUID();
+    public Account(BigDecimal balance, String number) {
+        this.number = number;
         this.balance = BigDecimal.ZERO;
     }
 }

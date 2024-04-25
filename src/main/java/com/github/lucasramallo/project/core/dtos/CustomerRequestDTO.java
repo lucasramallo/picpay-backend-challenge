@@ -6,8 +6,8 @@ public record CustomerRequestDTO(
         String document,
         String name,
         String email,
-        CustomerType type,
-        String password
+        String password,
+        CustomerType type
 
 ) {
 }
