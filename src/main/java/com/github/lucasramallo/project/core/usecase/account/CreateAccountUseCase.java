@@ -1,22 +1,19 @@
 package com.github.lucasramallo.project.core.usecase.account;
 
 import com.github.lucasramallo.project.core.domain.account.Account;
-import com.github.lucasramallo.project.core.repositories.AccountRepository;
-import com.github.lucasramallo.project.data.repository.AccountRepositoryImpl;
-import lombok.NoArgsConstructor;
+import com.github.lucasramallo.project.data.repository.jpa.JpaAccountRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service
 public class CreateAccountUseCase {
-    private final AccountRepository repository;
-
-    public CreateAccountUseCase() {
-        this.repository = new AccountRepositoryImpl();
-    }
-
+    @Autowired
+    private JpaAccountRepository accountRepository;
 
     public Account execute() {
         Account newAccount = new Account();
 
-        repository.persist(newAccount);
+        accountRepository.save(newAccount);
 
         return newAccount;
     }
