@@ -5,6 +5,8 @@ import com.github.lucasramallo.project.data.repository.jpa.JpaAccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.SQLException;
+
 @Service
 public class CreateAccountUseCase {
     @Autowired

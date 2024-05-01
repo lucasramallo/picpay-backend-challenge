@@ -14,7 +14,7 @@ public class CustomerController {
     private CreateCustomerUseCase createCustomerUseCase;
 
     @PostMapping()
-    public ResponseEntity<String> createCustomer(@RequestBody CustomerRequestDTO customerRequestDTO, UriComponentsBuilder uriComponentsBuilder) {
+    public ResponseEntity<Void> createCustomer(@RequestBody CustomerRequestDTO customerRequestDTO, UriComponentsBuilder uriComponentsBuilder) {
         createCustomerUseCase.execute(customerRequestDTO);
 
         var uri = uriComponentsBuilder.path("/customer/{document}").buildAndExpand(customerRequestDTO.document()).toUri();
