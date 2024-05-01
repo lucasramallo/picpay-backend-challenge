@@ -39,4 +39,11 @@ public class Account {
         return stringBuilder.toString();
     }
 
+    public void withdraw(BigDecimal value) {
+        setBalance(balance.subtract(value));
+    }
+
+    public void deposit(BigDecimal value) {
+        setBalance(balance.add(value));
+    }
 }

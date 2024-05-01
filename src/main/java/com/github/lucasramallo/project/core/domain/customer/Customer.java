@@ -74,4 +74,11 @@ public class Customer {
         }
     }
 
+    public boolean isCommon(){
+        return type == CustomerType.COMMON;
+    }
+
+    public boolean isMerchant(){
+        return type == CustomerType.MERCHANT;
+    }
 }
