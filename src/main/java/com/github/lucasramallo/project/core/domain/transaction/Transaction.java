@@ -14,7 +14,6 @@ import java.util.UUID;
 @Table(name = "transaction")
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
 public class Transaction {
     @Id
@@ -32,4 +31,11 @@ public class Transaction {
     @ManyToOne
     @JoinColumn(name = "payee_id", referencedColumnName = "number")
     private Account payee;
+
+    public Transaction(BigDecimal value, Account payer, Account payee) {
+        this.id = UUID.randomUUID();
+        this.value = value;
+        this.payer = payer;
+        this.payee = payee;
+    }
 }
