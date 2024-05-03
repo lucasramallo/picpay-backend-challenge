@@ -6,7 +6,6 @@ import org.springframework.web.client.RestTemplate;
 
 @Service
 public class AuthorizeTransactionUseCase {
-
     public Boolean execute() {
         RestTemplate restTemplate = new RestTemplate();
 

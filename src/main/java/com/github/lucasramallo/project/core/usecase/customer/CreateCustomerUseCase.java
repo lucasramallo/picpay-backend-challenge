@@ -19,12 +19,13 @@ public class CreateCustomerUseCase {
     public void execute(CustomerRequestDTO userRequestDTO) {
         Account newAccount = createAccountUseCase.execute();
 
+        //TODO: CUSTOMER TYPE
         Customer newCustomer = new Customer(
                 userRequestDTO.document(),
                 userRequestDTO.name(),
                 userRequestDTO.email(),
                 userRequestDTO.password(),
-                CustomerType.COMMON,
+                CustomerType.MERCHANT,
                 newAccount
         );
 
