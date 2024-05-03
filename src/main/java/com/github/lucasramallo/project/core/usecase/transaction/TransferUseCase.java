@@ -28,15 +28,18 @@ public class TransferUseCase {
     @Autowired
     private CreateTransactionUseCase createTransactionUseCase;
 
+    @Autowired
+    private AuthorizeTransactionUseCase authorizeTransactionUseCase;
+
     public UUID execute(TransferRequestDTO transferRequestDTO) {
-        Account payer = getAccountById.execute(transferRequestDTO.payer());
-        Account payee = getAccountById.execute(transferRequestDTO.payee());
+        Account payerAccount = getAccountById.execute(transferRequestDTO.payer());
+        Account payeeAccount = getAccountById.execute(transferRequestDTO.payee());
 
         BigDecimal value = transferRequestDTO.value();
 
-        Customer customerPayer = getCustomerByAccount.execute(payer.getNumber());
+        Customer customerPayer = getCustomerByAccount.execute(payerAccount.getNumber());
 
-        if(payer.getBalance().compareTo(value) < 0) {
+        if(payerAccount.getBalance().compareTo(value) < 0) {
             throw new InsufficientBalanceException("Insufficient Balance");
         }
 
@@ -44,12 +47,14 @@ public class TransferUseCase {
             throw new InvalidCustomerException("Merchant type customer cannot make transfers");
         }
 
-        payer.withdraw(value);
-        payee.deposit(value);
+        System.out.println(authorizeTransactionUseCase.execute());
 
-        saveAccountUseCase.execute(payer);
-        saveAccountUseCase.execute(payee);
+        payerAccount.withdraw(value);
+        payeeAccount.deposit(value);
 
-        return createTransactionUseCase.execute(value, payer, payee);
+        saveAccountUseCase.execute(payerAccount);
+        saveAccountUseCase.execute(payeeAccount);
+
+        return createTransactionUseCase.execute(value, payerAccount, payeeAccount);
     }
 }
