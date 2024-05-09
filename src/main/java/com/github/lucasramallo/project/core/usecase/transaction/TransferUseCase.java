@@ -10,6 +10,7 @@ import com.github.lucasramallo.project.core.service.EmailService;
 import com.github.lucasramallo.project.core.usecase.account.GetAccountById;
 import com.github.lucasramallo.project.core.usecase.account.SaveAccountUseCase;
 import com.github.lucasramallo.project.core.usecase.customer.GetCustomerByAccount;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -36,15 +37,35 @@ public class TransferUseCase {
     @Autowired
     private EmailService emailService;
 
+    @Transactional
     public UUID execute(TransferRequestDTO transferRequestDTO) {
         Account payerAccount = getAccountById.execute(transferRequestDTO.payer());
         Account payeeAccount = getAccountById.execute(transferRequestDTO.payee());
-
         BigDecimal value = transferRequestDTO.value();
-
         Customer customerPayer = getCustomerByAccount.execute(payerAccount.getNumber());
         Customer customerPayee = getCustomerByAccount.execute(payeeAccount.getNumber());
 
+        validateTransaction(value, payerAccount, customerPayer);
+
+        UUID transactionId = makeTransaction(value, payerAccount, payeeAccount);
+
+        if(customerPayee.isMerchant()) {
+            emailService.sendEmail(customerPayee);
+        }
+
+        return transactionId;
+    }
+
+    private UUID makeTransaction(BigDecimal value, Account payerAccount, Account payeeAccount) {
+        payerAccount.withdraw(value);
+        payeeAccount.deposit(value);
+        saveAccountUseCase.execute(payerAccount);
+        saveAccountUseCase.execute(payeeAccount);
+
+        return createTransactionUseCase.execute(value, payerAccount, payeeAccount);
+    }
+
+    private void validateTransaction(BigDecimal value, Account payerAccount, Customer customerPayer) {
         if(payerAccount.getBalance().compareTo(value) < 0) {
             throw new InsufficientBalanceException("Insufficient Balance");
         }
@@ -56,21 +77,5 @@ public class TransferUseCase {
         if(!authorizeTransactionUseCase.execute()) {
             throw new UnauthorizedTransactionException("Unauthorized Transaction");
         }
-
-        System.out.println(authorizeTransactionUseCase.execute());
-
-        payerAccount.withdraw(value);
-        payeeAccount.deposit(value);
-
-        saveAccountUseCase.execute(payerAccount);
-        saveAccountUseCase.execute(payeeAccount);
-
-        UUID transactionId = createTransactionUseCase.execute(value, payerAccount, payeeAccount);
-
-        if(customerPayee.isMerchant()) {
-            emailService.sendEmail(customerPayee, "Você recebeu uma transferência!");
-        }
-
-        return transactionId;
     }
 }

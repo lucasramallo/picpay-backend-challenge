@@ -13,9 +13,9 @@ public class EmailService {
     @Autowired
     private RestTemplate restTemplate;
 
-    public void sendEmail(Customer custumer, String message) {
+    public void sendEmail(Customer custumer) {
         String email = custumer.getEmail();
-        EmailRequestDTO emailRequestDTO = new EmailRequestDTO(email, message);
+        EmailRequestDTO emailRequestDTO = new EmailRequestDTO(email, "Você recebeu uma transferência!");
         String serviceUrl = "https://run.mocky.io/v3/54dc2cf1-3add-45b5-b5a9-6bf7e7f1f4a6";
 
         ResponseEntity<String> response = restTemplate.postForEntity(serviceUrl, emailRequestDTO, String.class);
