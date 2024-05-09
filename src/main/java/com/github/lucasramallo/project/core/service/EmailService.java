@@ -16,11 +16,14 @@ public class EmailService {
     public void sendEmail(Customer custumer) {
         String email = custumer.getEmail();
         EmailRequestDTO emailRequestDTO = new EmailRequestDTO(email, "Você recebeu uma transferência!");
-        String serviceUrl = "https://run.mocky.io/v3/54dc2cf1-3add-45b5-b5a9-6bf7e7f1f4a6";
 
-        ResponseEntity<String> response = restTemplate.postForEntity(serviceUrl, emailRequestDTO, String.class);
+        //MOCKY NOT FOUND
 
-        validate(response);
+//        String serviceUrl = "https://run.mocky.io/v3/54dc2cf1-3add-45b5-b5a9-6bf7e7f1f4a6";
+
+//        ResponseEntity<String> response = restTemplate.postForEntity(serviceUrl, emailRequestDTO, String.class);
+
+//        validate(response);
     }
 
     private void validate(ResponseEntity<String> response) {

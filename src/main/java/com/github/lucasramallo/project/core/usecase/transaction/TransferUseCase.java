@@ -37,7 +37,7 @@ public class TransferUseCase {
     @Autowired
     private EmailService emailService;
 
-    @Transactional
+
     public UUID execute(TransferRequestDTO transferRequestDTO) {
         Account payerAccount = getAccountById.execute(transferRequestDTO.payer());
         Account payeeAccount = getAccountById.execute(transferRequestDTO.payee());
@@ -56,6 +56,7 @@ public class TransferUseCase {
         return transactionId;
     }
 
+    @Transactional
     private UUID makeTransaction(BigDecimal value, Account payerAccount, Account payeeAccount) {
         payerAccount.withdraw(value);
         payeeAccount.deposit(value);
